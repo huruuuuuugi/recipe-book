@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2350c8">
+  <title>レシピを追加 | レシピ帳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="rb-header rb-header--stack">
+      <a class="rb-header__link" id="cancel" href="index.html">
+        <svg class="rb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>やめる
+      </a>
+      <h1 class="rb-screen-title" id="title">レシピを追加</h1>
+    </header>
+
+    <main>
+      <form class="rb-form" id="form" novalidate>
+        <div class="rb-field">
+          <span class="rb-field__label" id="image-label">画像</span>
+          <div class="rb-image-picker">
+            <div class="rb-image-preview rb-tile" id="image-preview" aria-hidden="true"></div>
+            <div class="rb-image-picker__actions">
+              <input class="visually-hidden" id="image" type="file" accept="image/*" aria-labelledby="image-label image-pick-text">
+              <label class="rb-btn rb-btn--outline" for="image" id="image-pick"><span id="image-pick-text">画像を選ぶ</span></label>
+              <button type="button" class="rb-btn rb-btn--danger" id="image-remove" hidden>画像を外す</button>
+            </div>
+          </div>
+          <span class="rb-field__hint" id="image-status">選ばないときはカテゴリのイラストが入ります</span>
+        </div>
+
+        <div class="rb-field">
+          <label class="rb-field__label" for="name">料理名<span class="rb-label">必須</span></label>
+          <input class="rb-input" id="name" name="name" type="text" required autocomplete="off" placeholder="例:豚こま生姜焼き" aria-describedby="name-error">
+          <p class="rb-error" id="name-error" role="alert"></p>
+        </div>
+
+        <fieldset class="rb-field">
+          <legend class="rb-field__label">カテゴリ<span class="rb-label">必須</span></legend>
+          <div class="rb-chip-group">
+            <label><input class="rb-chip-radio" type="radio" name="category" value="main" checked><span class="rb-chip">主菜</span></label>
+            <label><input class="rb-chip-radio" type="radio" name="category" value="side"><span class="rb-chip">副菜</span></label>
+            <label><input class="rb-chip-radio" type="radio" name="category" value="soup"><span class="rb-chip">汁物</span></label>
+            <label><input class="rb-chip-radio" type="radio" name="category" value="staple"><span class="rb-chip">ご飯・麺</span></label>
+          </div>
+        </fieldset>
+
+        <div class="rb-field">
+          <label class="rb-field__label" for="time">調理時間</label>
+          <div class="rb-inline">
+            <input class="rb-input rb-input--time" id="time" name="time" type="number" inputmode="numeric" min="0" max="999" placeholder="15">
+            <span>分</span>
+          </div>
+        </div>
+
+        <div class="rb-field">
+          <label class="rb-field__label" for="ingredients">材料</label>
+          <span class="rb-field__hint" id="ingredients-hint">1行に1つずつ入力</span>
+          <textarea class="rb-textarea" id="ingredients" name="ingredients" rows="5" aria-describedby="ingredients-hint" placeholder="豚こま 150g&#10;玉ねぎ 1/4個&#10;生姜チューブ 3cm"></textarea>
+        </div>
+
+        <div class="rb-field">
+          <label class="rb-field__label" for="steps">作り方</label>
+          <span class="rb-field__hint" id="steps-hint">1行に1手順ずつ入力</span>
+          <textarea class="rb-textarea" id="steps" name="steps" rows="5" aria-describedby="steps-hint" placeholder="玉ねぎを薄切りにする&#10;フライパンで豚肉を焼く&#10;玉ねぎとタレを入れて絡める"></textarea>
+        </div>
+
+        <div class="rb-field">
+          <label class="rb-field__label" for="memo">メモ</label>
+          <textarea class="rb-textarea" id="memo" name="memo" rows="3" placeholder="次は生姜を多めに"></textarea>
+        </div>
+
+        <p class="rb-error" id="save-error" role="alert"></p>
+        <button type="submit" class="rb-btn rb-btn--block rb-btn--large">保存する</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>

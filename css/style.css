@@ -1,0 +1,258 @@
+/* 一人暮らしレシピ帳 — デザインシステム「一人暮らしレシピ帳」のトークンとコンポーネント */
+
+/* トークン ------------------------------------------------------------ */
+:root {
+  --ground: #f6f0e1;
+  --surface: #f6f0e1;
+  --ink: #1c2333;
+  --ink-muted: #4a5266;
+  --line: #1c2333;
+  --blue: #2350c8;
+  --band: #2350c8;
+  --on-band: #ffffff;
+  --red: #e4502e;
+  --on-red: #ffffff;
+  --red-text: #c9381a;
+  --yellow: #f2c14e;
+  --on-yellow: #1c2333;
+  --focus: #1c2333;
+  --field: #ffffff;
+  --shadow-print: 3px 3px 0 #1c2333;
+
+  --font-display: "Dela Gothic One", "Zen Kaku Gothic New", sans-serif;
+  --font-sans: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  --tap-min: 44px;
+  --fab-size: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #161b27;
+    --surface: #1f2636;
+    --ink: #f6f0e1;
+    --ink-muted: #b7bcc8;
+    --line: #b7bcc8;
+    --blue: #8ea6f0;
+    --red: #f06a4a;
+    --on-red: #161b27;
+    --red-text: #f06a4a;
+    --on-yellow: #161b27;
+    --focus: #f2c14e;
+    --field: #1f2636;
+    --shadow-print: 3px 3px 0 #0b0e15;
+  }
+}
+
+/* 土台 ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+}
+a { color: var(--blue); }
+button, input, textarea, select { font: inherit; color: inherit; }
+.page { max-width: 600px; margin: 0 auto; min-height: 100vh; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ヘッダー(青い帯) --------------------------------------------------- */
+.rb-header {
+  background: var(--band); color: var(--on-band);
+  border-bottom: 2px solid var(--line);
+  padding: var(--space-2);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
+}
+.rb-header--title { padding: 20px var(--space-4) var(--space-4); align-items: baseline; }
+.rb-header--stack { flex-direction: column; align-items: stretch; padding-bottom: var(--space-4); }
+.rb-screen-title {
+  margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 26px; line-height: 1.4;
+}
+.rb-header--stack .rb-screen-title { margin: var(--space-1) var(--space-2) 0; }
+.rb-header__count { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; }
+.rb-header__link {
+  min-height: var(--tap-min); display: inline-flex; align-items: center; gap: var(--space-1);
+  padding: 0 var(--space-2); color: var(--on-band); font-weight: 700; text-decoration: none;
+  align-self: flex-start;
+}
+.rb-header__btn {
+  min-height: var(--tap-min); display: inline-flex; align-items: center; padding: 0 var(--space-4);
+  border: 2px solid var(--on-band); border-radius: var(--radius-md);
+  color: var(--on-band); font-weight: 700; text-decoration: none;
+}
+.rb-header__link:focus-visible, .rb-header__btn:focus-visible { outline: 3px solid var(--on-band); outline-offset: 2px; }
+.rb-icon { width: 20px; height: 20px; flex: none; }
+
+/* ボタン -------------------------------------------------------------- */
+.rb-btn {
+  min-height: var(--tap-min); min-width: var(--tap-min);
+  padding: 0 var(--space-6);
+  border: 2px solid var(--band); border-radius: var(--radius-md);
+  background: var(--band); color: var(--on-band);
+  font-family: var(--font-sans); font-size: 18px; font-weight: 700; line-height: 1.4;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  text-decoration: none; cursor: pointer;
+}
+.rb-btn--outline { background: transparent; color: var(--blue); border-color: var(--blue); }
+.rb-btn--danger  { background: transparent; color: var(--red-text); border-color: var(--red-text); }
+.rb-btn--block   { width: 100%; min-height: 48px; }
+.rb-btn--large   { min-height: 56px; }
+.rb-btn:focus-visible, .rb-chip:focus-visible, .rb-fab:focus-visible, .rb-card:focus-visible,
+input:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--focus); outline-offset: 3px;
+}
+
+/* ＋追加(FAB) --------------------------------------------------------- */
+.rb-fab {
+  height: var(--fab-size); min-width: var(--fab-size); padding: 0 var(--space-6);
+  border: 2px solid var(--line); border-radius: var(--radius-pill);
+  background: var(--red); color: var(--on-red); box-shadow: var(--shadow-print);
+  font-family: var(--font-sans); font-size: 20px; font-weight: 700; line-height: 1.4;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
+  text-decoration: none; cursor: pointer;
+}
+.rb-fab--fixed {
+  position: fixed;
+  right: max(var(--space-4), calc((100vw - 600px) / 2 + var(--space-4)));
+  bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
+}
+
+/* カテゴリの絞り込み ---------------------------------------------------- */
+.rb-chips {
+  display: flex; gap: var(--space-2); overflow-x: auto;
+  padding: var(--space-3) var(--space-4); scrollbar-width: none;
+  border-bottom: 1px solid var(--line);
+}
+.rb-chips::-webkit-scrollbar { display: none; }
+.rb-chip-group { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.rb-chip {
+  flex: none; min-height: var(--tap-min); padding: 0 var(--space-4);
+  border: 2px solid var(--line); border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--ink);
+  font-family: var(--font-sans); font-size: 14px; font-weight: 700; letter-spacing: 0.08em;
+  display: inline-flex; align-items: center; cursor: pointer;
+}
+.rb-chip[aria-pressed="true"] { background: var(--band); border-color: var(--band); color: var(--on-band); }
+/* フォームのカテゴリ:ラジオボタンをチップの見た目に */
+.rb-chip-radio { position: absolute; opacity: 0; pointer-events: none; }
+.rb-chip-radio:checked + .rb-chip { background: var(--band); border-color: var(--band); color: var(--on-band); }
+.rb-chip-radio:focus-visible + .rb-chip { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+/* ラベル -------------------------------------------------------------- */
+.rb-label {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm);
+  background: var(--yellow); color: var(--on-yellow);
+  font-family: var(--font-sans); font-size: 14px; font-weight: 700; letter-spacing: 0.08em; line-height: 1.4;
+}
+.rb-label--line { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.rb-labels { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3); }
+
+/* イラスト(画像がないときは青いタイル) ----------------------------------- */
+.rb-tile {
+  position: relative; overflow: hidden;
+  background-color: var(--band);
+  background-image: linear-gradient(var(--on-band) 1px, transparent 1px), linear-gradient(90deg, var(--on-band) 1px, transparent 1px);
+  background-size: 25% 25%; background-position: -1px -1px;
+}
+.rb-tile > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* レシピカード -------------------------------------------------------- */
+.rb-cards {
+  list-style: none; margin: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) 120px;
+}
+.rb-card {
+  display: block; height: 100%; text-decoration: none; color: var(--ink);
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-print); overflow: hidden;
+}
+.rb-card__img { aspect-ratio: 1 / 1; width: 100%; border-bottom: 2px solid var(--line); }
+.rb-card__body { padding: var(--space-3); display: grid; gap: var(--space-2); }
+.rb-card__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 20px; line-height: 1.4; overflow-wrap: anywhere; }
+.rb-card__meta { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; color: var(--ink-muted); font-size: 14px; }
+
+/* 空・見つからない ------------------------------------------------------ */
+.rb-empty {
+  padding: var(--space-12) var(--space-8);
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-6); text-align: center;
+}
+.rb-empty__tile { width: 160px; height: 160px; border: 2px solid var(--line); border-radius: var(--radius-md); box-shadow: var(--shadow-print); }
+.rb-empty__title { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.5; }
+.rb-empty__note { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-muted); }
+
+/* 詳細 ---------------------------------------------------------------- */
+.rb-hero { aspect-ratio: 1 / 1; width: 100%; border-bottom: 2px solid var(--line); }
+.rb-detail { padding: var(--space-6) var(--space-4) var(--space-12); }
+.rb-dish-title {
+  margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1.4;
+  color: var(--blue); overflow-wrap: anywhere;
+}
+.rb-section-title {
+  margin: var(--space-8) 0 var(--space-3); font-family: var(--font-sans); font-size: 20px; font-weight: 700;
+  line-height: 1.5; color: var(--ink); display: flex; align-items: center; gap: var(--space-2);
+}
+.rb-section-title::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
+.rb-steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.rb-steps > li {
+  counter-increment: step;
+  display: grid; grid-template-columns: 48px 1fr; gap: var(--space-3); align-items: start;
+  padding: var(--space-6) 0; border-bottom: 1px solid var(--line);
+  font-size: 18px; font-weight: 500; line-height: 1.8;
+}
+.rb-steps > li:first-child { padding-top: 0; }
+.rb-steps > li::before {
+  content: counter(step);
+  font-family: var(--font-display); font-size: 32px; line-height: 1; color: var(--blue); text-align: center;
+  padding-top: var(--space-1);
+}
+.rb-ingredients { list-style: none; margin: 0; padding: 0; }
+.rb-ingredients > li { padding: var(--space-2) 0; border-bottom: 1px dashed var(--line); font-size: 18px; font-weight: 500; line-height: 1.8; }
+.rb-memo { margin: 0; font-size: 18px; font-weight: 500; line-height: 1.8; white-space: pre-wrap; }
+.rb-actions { margin-top: var(--space-12); display: flex; flex-direction: column; gap: var(--space-3); }
+
+/* フォーム ------------------------------------------------------------ */
+.rb-form { padding: var(--space-6) var(--space-4) var(--space-12); display: flex; flex-direction: column; gap: var(--space-6); }
+.rb-field { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+.rb-field__label { padding: 0; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: var(--space-2); }
+.rb-field__hint { font-size: 14px; line-height: 1.6; color: var(--ink-muted); }
+.rb-input, .rb-textarea {
+  min-height: 48px; padding: 0 var(--space-3);
+  border: 2px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--field); font-size: 16px;
+}
+.rb-input--time { width: 120px; }
+.rb-textarea { padding: var(--space-3); line-height: 1.7; resize: vertical; }
+.rb-input::placeholder, .rb-textarea::placeholder { color: var(--ink-muted); }
+.rb-inline { display: flex; align-items: center; gap: var(--space-2); }
+.rb-image-picker { display: flex; align-items: center; gap: var(--space-4); }
+.rb-image-preview {
+  width: 120px; height: 120px; flex: none;
+  border: 2px solid var(--line); border-radius: var(--radius-md); box-shadow: var(--shadow-print);
+}
+.rb-image-picker__actions { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+.rb-image-picker__actions .rb-btn { padding: 0 var(--space-4); font-size: 16px; }
+input[type="file"]:focus-visible + .rb-btn { outline: 3px solid var(--focus); outline-offset: 3px; }
+.rb-error { margin: 0; color: var(--red-text); font-size: 14px; font-weight: 700; }
+.rb-error:empty { display: none; }

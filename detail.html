@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2350c8">
+  <title>レシピ | レシピ帳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="rb-header">
+      <a class="rb-header__link" href="index.html">
+        <svg class="rb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>一覧へ
+      </a>
+      <a class="rb-header__btn" id="edit-top" href="form.html" hidden>編集</a>
+    </header>
+
+    <main id="recipe" hidden>
+      <div class="rb-hero rb-tile" id="hero" aria-hidden="true"></div>
+      <div class="rb-detail">
+        <h1 class="rb-dish-title" id="name"></h1>
+        <div class="rb-labels">
+          <span class="rb-label">1人分</span>
+          <span class="rb-label" id="time"></span>
+          <span class="rb-label rb-label--line" id="category"></span>
+        </div>
+
+        <section id="ingredients-section">
+          <h2 class="rb-section-title">材料</h2>
+          <ul class="rb-ingredients" id="ingredients"></ul>
+        </section>
+
+        <section id="steps-section">
+          <h2 class="rb-section-title">作り方</h2>
+          <ol class="rb-steps" id="steps"></ol>
+        </section>
+
+        <section id="memo-section">
+          <h2 class="rb-section-title">メモ</h2>
+          <p class="rb-memo" id="memo"></p>
+        </section>
+
+        <div class="rb-actions">
+          <a class="rb-btn rb-btn--block" id="edit" href="form.html">編集</a>
+          <button type="button" class="rb-btn rb-btn--danger rb-btn--block" id="delete">削除</button>
+        </div>
+      </div>
+    </main>
+
+    <main class="rb-empty" id="not-found" hidden>
+      <div class="rb-empty__tile rb-tile" aria-hidden="true"></div>
+      <p class="rb-empty__title">レシピが見つかりません</p>
+      <a class="rb-btn" href="index.html">一覧へ戻る</a>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/detail.js"></script>
+</body>
+</html>
