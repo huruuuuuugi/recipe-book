@@ -53,6 +53,32 @@ function deleteRecipe(id) {
   saveRecipes(loadRecipes().filter((recipe) => recipe.id !== id));
 }
 
+// バックアップ:全レシピを JSON 文字列にする
+function exportRecipes() {
+  return JSON.stringify(loadRecipes(), null, 2);
+}
+
+// バックアップを読み込む。同じ id は上書き、新しいものは追加。読み込んだ件数を返す
+function importRecipes(text) {
+  const incoming = JSON.parse(text);
+  if (!Array.isArray(incoming) || incoming.some((r) => !r || typeof r.name !== "string")) {
+    throw new Error("レシピ帳のバックアップファイルではありません");
+  }
+
+  const recipes = loadRecipes();
+  incoming.forEach((recipe) => {
+    const item = { ...recipe, id: recipe.id || createId() };
+    const index = recipes.findIndex((r) => r.id === item.id);
+    if (index === -1) {
+      recipes.push(item);
+    } else {
+      recipes[index] = item;
+    }
+  });
+  saveRecipes(recipes);
+  return incoming.length;
+}
+
 function createId() {
   // crypto.randomUUID は HTTPS(GitHub Pages)と localhost で使える
   if (window.crypto && crypto.randomUUID) {

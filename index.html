@@ -35,6 +35,17 @@
         <p class="rb-empty__title" id="empty-title">最初のレシピを追加しましょう</p>
         <p class="rb-empty__note" id="empty-note">レシピはこのスマホの中に保存されます</p>
       </div>
+
+      <section class="rb-backup" aria-labelledby="backup-title">
+        <h2 class="rb-section-title" id="backup-title">バックアップ</h2>
+        <p class="rb-field__hint">全レシピをファイルに書き出して、別の端末で読み込めます</p>
+        <div class="rb-backup__actions">
+          <button type="button" class="rb-btn rb-btn--outline" id="export">書き出す</button>
+          <input class="visually-hidden" id="import" type="file" accept="application/json,.json">
+          <label class="rb-btn rb-btn--outline" for="import">読み込む</label>
+        </div>
+        <p class="rb-backup__status" id="backup-status" role="status"></p>
+      </section>
     </main>
 
     <a class="rb-fab rb-fab--fixed" href="form.html">＋追加</a>

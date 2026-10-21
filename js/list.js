@@ -8,7 +8,11 @@ const countEl = document.getElementById("count");
 const filterButtons = document.querySelectorAll("#filters .rb-chip");
 const cardTemplate = document.getElementById("card-template");
 
-const recipes = loadRecipes();
+const exportButton = document.getElementById("export");
+const importInput = document.getElementById("import");
+const backupStatus = document.getElementById("backup-status");
+
+let recipes = loadRecipes();
 let currentCategory = "all";
 
 function render() {
@@ -45,6 +49,44 @@ filterButtons.forEach((button) => {
     filterButtons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
     render();
   });
+});
+
+function showBackupStatus(message, isError = false) {
+  backupStatus.textContent = message;
+  backupStatus.classList.toggle("rb-backup__status--error", isError);
+}
+
+// 全レシピを recipes-日付.json としてダウンロードする
+exportButton.addEventListener("click", () => {
+  if (recipes.length === 0) {
+    showBackupStatus("書き出すレシピがありません", true);
+    return;
+  }
+  const blob = new Blob([exportRecipes()], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `recipes-${new Date().toISOString().slice(0, 10)}.json`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showBackupStatus(`${recipes.length}品を書き出しました`);
+});
+
+importInput.addEventListener("change", async () => {
+  const file = importInput.files[0];
+  importInput.value = "";
+  if (!file) return;
+
+  try {
+    const count = importRecipes(await file.text());
+    recipes = loadRecipes();
+    render();
+    showBackupStatus(`${count}品を読み込みました`);
+  } catch (error) {
+    console.error(error);
+    const full = error.name === "QuotaExceededError";
+    showBackupStatus(full ? "容量がいっぱいで読み込めませんでした" : "このファイルは読み込めませんでした", true);
+  }
 });
 
 render();
